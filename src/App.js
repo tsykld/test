@@ -6,13 +6,12 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [activeTab, setActiveTab] = useState(1);
-  const [todos, setToDos] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    setToDos(savedTodos);
-  }, [])
+  const [todos, setToDos] = useState(() => {
+    const savedTodos = localStorage.getItem('todos');
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  })
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
